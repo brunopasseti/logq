@@ -1,5 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include <iostream>
+#include <iomanip>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 int main(void){
     puts("Ola mundo");
