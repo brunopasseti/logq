@@ -30,6 +30,3 @@ target_link_libraries(logq PRIVATE nlohmann_json::nlohmann_json)
 FetchContent_Declare(glpk URL https://ftp.gnu.org/gnu/glpk/glpk-5.0.tar.gz)
 FetchContent_MakeAvailable(glpk)
 target_link_libraries(logq PRIVATE glpk)
-
-add_custom_target(run_test_instance COMMAND logq ./instances/teste DEPENDS logq WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
-# add_dependencies(run_test_instance logq)
