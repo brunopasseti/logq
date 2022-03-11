@@ -30,3 +30,9 @@ target_link_libraries(logq PRIVATE nlohmann_json::nlohmann_json)
 FetchContent_Declare(glpk URL https://ftp.gnu.org/gnu/glpk/glpk-5.0.tar.gz)
 FetchContent_MakeAvailable(glpk)
 target_link_libraries(logq PRIVATE glpk)
+
+target_include_directories(logq PRIVATE /home/brunopasseti/Downloads/coin-or/CoinUtils/src /home/brunopasseti/Downloads/coin-or/Osi/src/Osi /home/brunopasseti/Downloads/coin-or/Osi/src/OsiGlpk)
+
+# find_library(osi NAMES Osi PATHS /home/brunopasseti/Downloads/coin-or/dist/lib)
+# target_link_libraries(logq PRIVATE Osi)
+# LD_LIBRARY_PATH=/home/brunopasseti/Downloads/coin-or/dist/lib
