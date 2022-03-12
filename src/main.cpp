@@ -43,7 +43,7 @@ Data parse_instance(std::string input){
         data.n_horarios = std::atoi(n_horarios.data());
         data.tau_i = std::vector<int>(data.n_alunos, 0);
         data.mi_i_j_k = std::vector<std::vector<std::vector<int>>>(data.n_alunos, std::vector<std::vector<int>>(data.n_dias, std::vector<int>(data.n_horarios, 0)));
-        std::cout << n_alunos << omega << n_dias << n_horarios << std::endl;
+        // std::cout << n_alunos << omega << n_dias << n_horarios << std::endl;
         data.omega = std::atoi(omega.data());
         ch = fp.peek();
         while( ch == '#' || ch == '\n' || ch == ' '){
@@ -79,31 +79,80 @@ int main(int argc, char** argv){
     }
     OsiSolverInterface *problem = new OsiGlpkSolverInterface();
     Data instance = parse_instance(std::string(argv[argc-1]));
+    problem->setObjName("logq");
     /*
     /   MAX x_0_0_0 + x_0_0_1 + ....
     /
     /
     */
-    int n_cols = instance.n_alunos*instance.n_dias*instance.n_horarios;
+    int n_cols = (instance.n_alunos*instance.n_dias*instance.n_horarios);
     double * objective = new double[n_cols];//the objective coefficients
     double * col_lb = new double[n_cols];//the column lower bounds
     double * col_ub = new double[n_cols];//the column upper bounds
-    for(int i = 0; i < n_cols; i++){
-        objective[i] = 1.0;
-        col_lb[i] = 0.0;
-        col_ub[i] = 1.0;
-    }
-    int n_rows = n_cols;
-    CoinPackedMatrix * matrix = new CoinPackedMatrix(false,0,0);
-    matrix->setDimensions(0, n_cols);
     for(int i = 0; i < instance.n_alunos; i++){
         for(int j = 0; j < instance.n_dias; j++){
             for(int k = 0; k < instance.n_horarios; k++){  
+                // Flat[x + y * WIDTH + z * WIDTH * DEPTH)] = Original[x, y, z]
                 int index = i + j*instance.n_alunos + k*instance.n_alunos*instance.n_dias;
-                
+                objective[index] = 1.0;
+                col_lb[index] = 0.0;
+                col_ub[index] = instance.mi_i_j_k[i][j][k];
             }
         }
     }
+    int n_rows = instance.n_alunos + (instance.n_dias*instance.n_horarios);
+    double * row_lb = new double[n_rows]; //the row lower bounds
+    double * row_ub = new double[n_rows]; //the row upper bounds
+
+    CoinPackedMatrix * matrix = new CoinPackedMatrix(false,0,0);
+    matrix->setDimensions(0, n_cols);
+
+    // restrição 1 para todo aluno a em A
+    
+    double rest1Elem[instance.n_alunos] = {};
+    double rest1Index[instance.n_alunos] = {};
+
+    for(int k = 0; k < instance.n_horarios; k++){  
+        for(int j = 0; j < instance.n_dias; j++){
+            for(int i = 0; i < instance.n_alunos; i++){
+                    // Flat[x + y * WIDTH + z * WIDTH * DEPTH)] = Original[x, y, z]
+                    int index = i + j*instance.n_alunos + k*instance.n_alunos*instance.n_dias;
+                    rest1Elem[index] = 1.0;
+                    row_lb[index] = instance.tau_i[i];
+                    row_ub[index] = problem->getInfinity();
+                }
+            }
+    }
+    // restrição 2 para todo dia d horario k
+    for(int k = 0; k < instance.n_horarios; k++){  
+        for(int j = 0; j < instance.n_dias; j++){
+            CoinPackedVector row;
+            for(int i = 0; i < instance.n_alunos; i++){
+                // Flat[x + y * WIDTH + z * WIDTH * DEPTH)] = Original[x, y, z]
+                int index = i + j*instance.n_alunos + k*instance.n_alunos*instance.n_dias;
+                row.insert(index, 1.0);
+                row_ub[index] = instance.omega;
+                row_lb[index] = -1.0 * problem->getInfinity();
+            }
+            matrix->appendRow(row);
+        }
+    }
+
+    problem->loadProblem(*matrix, col_lb, col_ub, objective, row_lb, row_ub);
+    problem->writeLp("debug");
+    problem->writeMps("debug");
+    problem->initialSolve();
+
+    int b;
+
+    if(problem->isProvenOptimal()){
+        std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
+    }
+    delete objective;
+    delete col_lb;
+    delete col_ub;
+    delete row_lb;
+    delete row_ub;
     delete problem;
     return EXIT_SUCCESS;
 }   

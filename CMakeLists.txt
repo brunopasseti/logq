@@ -33,6 +33,13 @@ target_link_libraries(logq PRIVATE glpk)
 
 target_include_directories(logq PRIVATE /home/brunopasseti/Downloads/coin-or/CoinUtils/src /home/brunopasseti/Downloads/coin-or/Osi/src/Osi /home/brunopasseti/Downloads/coin-or/Osi/src/OsiGlpk)
 
-# find_library(osi NAMES Osi PATHS /home/brunopasseti/Downloads/coin-or/dist/lib)
-# target_link_libraries(logq PRIVATE Osi)
+set(coin_path /home/brunopasseti/Downloads/coin-or/dist/lib)
+find_library(COIN_LIB CoinUtils PATHS ${coin_path})
+target_link_libraries(logq PUBLIC ${COIN_LIB})
+
+find_library(OSI_LIB Osi PATHS ${coin_path})
+target_link_libraries(logq PUBLIC ${OSI_LIB})
+
+find_library(OSIGLPK_LIB OsiGlpk PATHS ${coin_path})
+target_link_libraries(logq PUBLIC ${OSIGLPK_LIB})
 # LD_LIBRARY_PATH=/home/brunopasseti/Downloads/coin-or/dist/lib
