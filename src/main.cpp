@@ -118,8 +118,8 @@ int main(int argc, char** argv){
                     // Flat[x + y * WIDTH + z * WIDTH * DEPTH)] = Original[x, y, z]
                     int index = i + j*instance.n_alunos + k*instance.n_alunos*instance.n_dias;
                     rest1Elem[index] = 1.0;
-                    row_lb[index] = instance.tau_i[i];
-                    row_ub[index] = problem->getInfinity();
+                    row_ub[index] = instance.tau_i[i];
+                    row_lb[index] = problem->getInfinity();
                 }
             }
     }
