@@ -1,49 +1,49 @@
 {
-  "quant_dias"      : 5,
-  "quant_horarios"  : 5,
+  "quant_dias": 5,
+  "quant_horarios": 5,
   "quant_workspace": 3,
-  "infos"           : [
+  "infos": [
     {
-      "nome"    : "Bruno",
+      "nome": "Bruno",
       "horarios": {
         "segunda": [0, 1, 0, 1, 0],
-        "terca"  : [0, 0, 1, 0, 0],
-        "quarta" : [1, 0, 0, 1, 0],
-        "quinta" : [0, 1, 0, 0, 0],
-        "sexta"  : [0, 1, 1, 1, 1]
+        "terca": [0, 0, 1, 0, 0],
+        "quarta": [1, 0, 0, 1, 0],
+        "quinta": [0, 1, 0, 0, 0],
+        "sexta": [0, 1, 1, 1, 1]
       },
       "quantidade_minima": 7
     },
     {
-      "nome"    : "Rodrigo",
+      "nome": "Rodrigo",
       "horarios": {
         "segunda": [0, 0, 0, 1, 0],
-        "terca"  : [0, 0, 0, 1, 1],
-        "quarta" : [0, 0, 0, 1, 1],
-        "quinta" : [0, 0, 0, 1, 1],
-        "sexta"  : [0, 0, 1, 1, 1]
+        "terca": [0, 0, 0, 1, 1],
+        "quarta": [0, 0, 0, 1, 1],
+        "quinta": [0, 0, 0, 1, 1],
+        "sexta": [0, 0, 1, 1, 1]
       },
       "quantidade_minima": 5
     },
     {
-      "nome"    : "Felipe",
+      "nome": "Felipe",
       "horarios": {
         "segunda": [0, 1, 0, 0, 0],
-        "terca"  : [0, 1, 0, 0, 0],
-        "quarta" : [0, 1, 0, 0, 0],
-        "quinta" : [0, 1, 0, 0, 0],
-        "sexta"  : [0, 1, 0, 0, 0]
+        "terca": [0, 1, 0, 0, 0],
+        "quarta": [0, 1, 0, 0, 0],
+        "quinta": [0, 1, 0, 0, 0],
+        "sexta": [0, 1, 0, 0, 0]
       },
       "quantidade_minima": 5
     },
     {
-      "nome"    : "Lenildo",
+      "nome": "Lenildo",
       "horarios": {
         "segunda": [0, 1, 0, 1, 0],
-        "terca"  : [0, 1, 1, 0, 0],
-        "quarta" : [0, 1, 0, 0, 0],
-        "quinta" : [0, 1, 0, 0, 0],
-        "sexta"  : [0, 1, 0, 1, 0]
+        "terca": [0, 1, 1, 0, 0],
+        "quarta": [0, 1, 0, 0, 0],
+        "quinta": [0, 1, 0, 0, 0],
+        "sexta": [0, 1, 0, 1, 0]
       },
       "quantidade_minima": 3
     }
