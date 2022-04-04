@@ -29,10 +29,9 @@
         dest: /etc/ssh/sshd_config
       become: yes
         
-
     - name: Start sshd service, if not started
       service:
-        name: sshd
+        name: sshd.service
         state: started
       become: yes
 
