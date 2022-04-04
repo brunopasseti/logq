@@ -1,0 +1,3 @@
+[submodule "logq-dotfiles"]
+	path = logq-dotfiles
+	url = https://github.com/brunopasseti/logq-dotfiles
