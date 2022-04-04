@@ -1,0 +1,30 @@
+---
+- name: Creating users in new q machine.
+  hosts: new
+  remote_user: root
+  tasks:
+    - name: Update machine.
+      apt:
+        name: "*"
+        state: latest
+      become: yes
+    - name: Install packages.
+      apt:
+        pkg:
+          - build-essential
+          - openssh-server
+          - openssh-client
+      become: yes
+    - 
+    - name: Start service ssh, if not started
+      ansible.builtin.service:
+        name: sshd
+        state: started
+    # - name: Collet PC minimal info.
+    #   setup:
+    #     gather_subset: 
+    #       - '!min'
+    # - name: Print all available facts
+    #   ansible.builtin.debug:
+    #     var: ansible_facts
+
