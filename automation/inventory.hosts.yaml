@@ -1,0 +1,26 @@
+all:
+  children:
+    lab:
+      children:
+        new:
+          hosts:
+            q1.logq.dev:
+              ansible_user: qcluster2
+              ansible_password: Qmaiscluster2
+              ansible_become_password: Qmaiscluster2
+            # q2.logq.dev:
+              # ansible_user: qcluster1
+              # ansible_password: Qmaiscluster1
+            q11.logq.dev:
+                ansible_user: brunopasseti
+                ansible_password: Qmaiscluster3
+                ansible_become_password: Qmaiscluster3
+          vars:
+            ansible_port: 22
+        old:
+          hosts:
+            q[3:10].logq.dev:
+          vars:
+            ansible_port: 8022
+    servers:
+      qserver.hopto.com:
